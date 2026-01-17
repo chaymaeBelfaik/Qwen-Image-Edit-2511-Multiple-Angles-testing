@@ -1,0 +1,130 @@
+Multiple Angles LoRA Test - 2026-01-17 12:22:31
+============================================================
+Output directory: /home/ubuntu/Qwen-edit-multiple-angles-test/mustang_angles_20260117_122231
+Log file: /home/ubuntu/Qwen-edit-multiple-angles-test/mustang_angles_20260117_122231/test_log_20260117_122231.txt
+
+Testing all 18 angle variations:
+  1: front view eye-level shot medium shot
+  2: front view high-angle shot medium shot
+  3: front view low-angle shot medium shot
+  4: front view elevated shot medium shot
+  5: right side view eye-level shot medium shot
+  6: left side view eye-level shot medium shot
+  7: right side view high-angle shot medium shot
+  8: left side view low-angle shot medium shot
+  9: back view eye-level shot medium shot
+  10: back view high-angle shot medium shot
+  11: back view low-angle shot medium shot
+  12: front-left quarter view eye-level shot medium shot
+  13: front-right quarter view eye-level shot medium shot
+  14: back-left quarter view eye-level shot medium shot
+  15: back-right quarter view eye-level shot medium shot
+  16: front view eye-level shot close-up
+  17: front view eye-level shot wide shot
+  18: front view eye-level shot long shot
+
+============================================================
+LOADING MODEL WITH MULTIPLE ANGLES LORA
+============================================================
+
+Loading base transformer model...
+Setting up scheduler...
+Creating pipeline...
+Loading LoRA weights from qwen-image-edit-2511-multiple-angles-lora.safetensors...
+Moving to device...
+
+Model loading time: 11.84 seconds
+
+Loaded test image: 1967 Mustang Fastback.jpg (1024x1024, mode: RGB)
+
+================================================================================
+PROMPT: mustang_angles
+================================================================================
+Prompt preview: Testing multiple angle variations using SKS format...
+
+🔬 ANALYZING: front view eye-level shot medium shot
+🔬 ANALYZING: front view high-angle shot medium shot
+🔬 ANALYZING: front view low-angle shot medium shot
+🔬 ANALYZING: front view elevated shot medium shot
+🔬 ANALYZING: right side view eye-level shot medium shot
+🔬 ANALYZING: left side view eye-level shot medium shot
+🔬 ANALYZING: right side view high-angle shot medium shot
+🔬 ANALYZING: left side view low-angle shot medium shot
+🔬 ANALYZING: back view eye-level shot medium shot
+🔬 ANALYZING: back view high-angle shot medium shot
+🔬 ANALYZING: back view low-angle shot medium shot
+🔬 ANALYZING: front-left quarter view eye-level shot medium shot
+🔬 ANALYZING: front-right quarter view eye-level shot medium shot
+🔬 ANALYZING: back-left quarter view eye-level shot medium shot
+🔬 ANALYZING: back-right quarter view eye-level shot medium shot
+🔬 ANALYZING: front view eye-level shot close-up
+🔬 ANALYZING: front view eye-level shot wide shot
+🔬 ANALYZING: front view eye-level shot long shot
+============================================================
+MULTIPLE ANGLES MODEL - 8 STEPS
+============================================================
+
+================================================================================
+BENCHMARK RESULTS
+================================================================================
+#    | PROMPT                                             | STEPS  | TIME       | VRAM    
+--------------------------------------------------------------------------------
+1    | front view eye-level shot medium shot              | 8      |    27.39s |  65.47 GB
+2    | front view high-angle shot medium shot             | 8      |    26.26s |  66.42 GB
+3    | front view low-angle shot medium shot              | 8      |    26.34s |  66.42 GB
+4    | front view elevated shot medium shot               | 8      |    26.38s |  66.42 GB
+5    | right side view eye-level shot medium shot         | 8      |    26.43s |  66.43 GB
+6    | left side view eye-level shot medium shot          | 8      |    26.49s |  66.43 GB
+7    | right side view high-angle shot medium shot        | 8      |    26.50s |  66.43 GB
+8    | left side view low-angle shot medium shot          | 8      |    26.51s |  66.43 GB
+9    | back view eye-level shot medium shot               | 8      |    26.50s |  66.42 GB
+10   | back view high-angle shot medium shot              | 8      |    26.54s |  66.42 GB
+11   | back view low-angle shot medium shot               | 8      |    26.52s |  66.42 GB
+12   | front-left quarter view eye-level shot medium sh   | 8      |    26.53s |  66.43 GB
+13   | front-right quarter view eye-level shot medium s   | 8      |    26.50s |  66.43 GB
+14   | back-left quarter view eye-level shot medium sho   | 8      |    26.52s |  66.43 GB
+15   | back-right quarter view eye-level shot medium sh   | 8      |    26.51s |  66.43 GB
+16   | front view eye-level shot close-up                 | 8      |    26.52s |  66.42 GB
+17   | front view eye-level shot wide shot                | 8      |    26.51s |  66.42 GB
+18   | front view eye-level shot long shot                | 8      |    26.51s |  66.42 GB
+
+================================================================================
+FINAL SUMMARY
+================================================================================
+
+Model: Qwen/Qwen-Image-Edit-2511
+LoRA: qwen-image-edit-2511-multiple-angles-lora.safetensors
+Inference Steps: 8
+CFG Scale: 4.0
+Model Loading Time: 11.84 seconds
+Total Angles Tested: 18
+Output Directory: /home/ubuntu/Qwen-edit-multiple-angles-test/mustang_angles_20260117_122231
+Log File: /home/ubuntu/Qwen-edit-multiple-angles-test/mustang_angles_20260117_122231/test_log_20260117_122231.txt
+
+================================================================================
+STATISTICS (Successful Generations Only)
+================================================================================
+Total Successful: 18/18
+
+Generation Time (without model loading):
+  Average: 26.53s
+  Fastest: 26.26s
+  Slowest: 27.39s
+  Total: 477.46s
+
+Total Time (with model loading):
+  Model Loading: 11.84s
+  Generation: 477.46s
+  Total: 489.30s
+  Average per image (with loading): 27.18s
+Average Throughput: 0.04M px/sec
+Max Throughput: 0.04M px/sec
+Average Time per Step: 3315.7ms
+Fastest Step Time: 3282.2ms
+Average Peak VRAM: 66.37 GB
+Max Peak VRAM: 66.43 GB
+Min Peak VRAM: 65.47 GB
+
+================================================================================
+
+Test completed successfully!

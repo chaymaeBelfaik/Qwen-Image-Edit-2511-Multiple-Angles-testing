@@ -1,0 +1,11 @@
+torch
+transformers
+accelerate
+pillow
+runpod
+torchvision
+huggingface_hub
+boto3
+peft
+pynvml
+git+https://github.com/huggingface/diffusers
