@@ -1,0 +1,97 @@
+======================================================================================================================================================
+INFERENCE TIME GRID - Time by Image and Resolution
+======================================================================================================================================================
+
+RESOLUTIONS TESTED (5 total):
+  1. 512x512
+  2. 768x768
+  3. 1024x1024
+  4. 1280x1280
+  5. 1536x1536
+
+Images per resolution: 18
+Total images in grid: 90
+Expected total: 90
+
+TABLE STRUCTURE:
+  - Rows: 18 images/prompts
+  - Columns: 5 resolutions (all listed above)
+  - Each cell shows generation time in seconds
+
+INFERENCE TIME TABLE (seconds):
+Image/Prompt                                       | 512x512      | 768x768      | 1024x1024    | 1280x1280    | 1536x1536   
+-----------------------------------------------------------------------------------------------------------------------------
+Image_01_front view eye-level shot medium shot  |      26.29s |      24.65s |      24.64s |      24.66s |      24.68s
+Image_02_front view high-angle shot medium shot |      24.66s |      24.66s |      24.63s |      24.66s |      24.69s
+Image_03_front view low-angle shot medium shot  |      24.66s |      24.65s |      24.64s |      24.68s |      24.68s
+Image_04_front view elevated shot medium shot   |      24.66s |      24.66s |      24.64s |      24.67s |      24.70s
+Image_05_right side view eye-level shot medium shot |      24.66s |      24.66s |      24.64s |      24.67s |      24.69s
+Image_06_left side view eye-level shot medium shot |      24.66s |      24.66s |      24.64s |      24.68s |      24.68s
+Image_07_right side view high-angle shot medium shot |      24.65s |      24.65s |      24.64s |      24.68s |      24.68s
+Image_08_left side view low-angle shot medium shot |      24.66s |      24.66s |      24.64s |      24.68s |      24.68s
+Image_09_back view eye-level shot medium shot   |      24.67s |      24.66s |      24.65s |      24.67s |      24.69s
+Image_10_back view high-angle shot medium shot  |      24.65s |      24.65s |      24.65s |      24.67s |      24.68s
+Image_11_back view low-angle shot medium shot   |      24.65s |      24.65s |      24.64s |      24.67s |      24.68s
+Image_12_front-left quarter view eye-level shot medium sh |      24.66s |      24.65s |      24.64s |      24.66s |      24.67s
+Image_13_front-right quarter view eye-level shot medium s |      24.64s |      24.65s |      24.64s |      24.67s |      24.68s
+Image_14_back-left quarter view eye-level shot medium sho |      24.66s |      24.65s |      24.65s |      24.68s |      24.68s
+Image_15_back-right quarter view eye-level shot medium sh |      24.65s |      24.66s |      24.65s |      24.67s |      24.69s
+Image_16_front view eye-level shot close-up     |      24.64s |      24.65s |      24.64s |      24.67s |      24.69s
+Image_17_front view eye-level shot wide shot    |      24.64s |      24.65s |      24.64s |      24.67s |      24.69s
+Image_18_front view eye-level shot long shot    |      24.64s |      24.65s |      24.64s |      24.67s |      24.76s
+
+======================================================================================================================================================
+SUMMARY STATISTICS BY RESOLUTION
+======================================================================================================================================================
+
+All 5 resolutions included in statistics:
+
+1. Resolution 512x512:
+   Images generated: 18/18
+   Average time: 24.74s
+   Min time: 24.64s
+   Max time: 26.29s
+   Total time: 445.40s
+
+2. Resolution 768x768:
+   Images generated: 18/18
+   Average time: 24.65s
+   Min time: 24.65s
+   Max time: 24.66s
+   Total time: 443.79s
+
+3. Resolution 1024x1024:
+   Images generated: 18/18
+   Average time: 24.64s
+   Min time: 24.63s
+   Max time: 24.65s
+   Total time: 443.54s
+
+4. Resolution 1280x1280:
+   Images generated: 18/18
+   Average time: 24.67s
+   Min time: 24.66s
+   Max time: 24.68s
+   Total time: 444.06s
+
+5. Resolution 1536x1536:
+   Images generated: 18/18
+   Average time: 24.69s
+   Min time: 24.67s
+   Max time: 24.76s
+   Total time: 444.40s
+
+======================================================================================================================================================
+VERIFICATION
+======================================================================================================================================================
+Resolutions in table header: 5
+Resolutions in statistics section: 5
+Resolutions listed at top: 5
+✅ All 5 resolutions are included in the table above
+
+Resolution list:
+  1. 512x512
+  2. 768x768
+  3. 1024x1024
+  4. 1280x1280
+  5. 1536x1536

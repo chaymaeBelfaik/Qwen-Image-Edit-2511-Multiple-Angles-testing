@@ -1,0 +1,19 @@
+Image/Prompt,512x512,768x768,1024x1024,1280x1280,1536x1536
+Image_01_front view eye-level shot medium shot,25.83,24.65,24.64,24.68,24.69
+Image_02_front view high-angle shot medium shot,24.66,24.66,24.64,24.68,24.68
+Image_03_front view low-angle shot medium shot,24.67,24.65,24.64,24.68,24.69
+Image_04_front view elevated shot medium shot,24.67,24.66,24.64,24.68,24.69
+Image_05_right side view eye-level shot medium shot,24.66,24.66,24.64,24.68,24.68
+Image_06_left side view eye-level shot medium shot,24.66,24.66,24.65,24.67,24.73
+Image_07_right side view high-angle shot medium shot,24.65,24.65,24.64,24.67,24.69
+Image_08_left side view low-angle shot medium shot,24.66,24.66,24.65,24.67,24.69
+Image_09_back view eye-level shot medium shot,24.64,24.66,24.65,24.66,24.69
+Image_10_back view high-angle shot medium shot,24.65,24.66,24.64,24.67,24.68
+Image_11_back view low-angle shot medium shot,24.65,24.66,24.65,24.68,24.68
+Image_12_front-left quarter view eye-level shot medium shot,24.64,24.65,24.64,24.67,24.69
+Image_13_front-right quarter view eye-level shot medium sho,24.65,24.65,24.65,24.67,24.69
+Image_14_back-left quarter view eye-level shot medium shot,24.65,24.65,24.65,24.66,24.69
+Image_15_back-right quarter view eye-level shot medium shot,24.65,24.66,24.64,24.66,24.68
+Image_16_front view eye-level shot close-up,24.65,24.65,24.65,24.67,24.68
+Image_17_front view eye-level shot wide shot,24.65,24.65,24.64,24.68,24.67
+Image_18_front view eye-level shot long shot,24.64,24.65,24.65,24.72,24.68

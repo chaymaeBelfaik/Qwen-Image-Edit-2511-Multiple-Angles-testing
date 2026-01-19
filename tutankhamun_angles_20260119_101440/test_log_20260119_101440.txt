@@ -1,0 +1,395 @@
+Multiple Angles LoRA Test - 2026-01-19 10:14:40
+============================================================
+Output directory: /home/ubuntu/Qwen-Image-Edit-2511-Multiple-Angles-testing/tutankhamun_angles_20260119_101440
+Log file: /home/ubuntu/Qwen-Image-Edit-2511-Multiple-Angles-testing/tutankhamun_angles_20260119_101440/test_log_20260119_101440.txt
+
+Testing all 18 angle variations:
+  1: front view eye-level shot medium shot
+  2: front view high-angle shot medium shot
+  3: front view low-angle shot medium shot
+  4: front view elevated shot medium shot
+  5: right side view eye-level shot medium shot
+  6: left side view eye-level shot medium shot
+  7: right side view high-angle shot medium shot
+  8: left side view low-angle shot medium shot
+  9: back view eye-level shot medium shot
+  10: back view high-angle shot medium shot
+  11: back view low-angle shot medium shot
+  12: front-left quarter view eye-level shot medium shot
+  13: front-right quarter view eye-level shot medium shot
+  14: back-left quarter view eye-level shot medium shot
+  15: back-right quarter view eye-level shot medium shot
+  16: front view eye-level shot close-up
+  17: front view eye-level shot wide shot
+  18: front view eye-level shot long shot
+
+Testing resolutions: ['512x512', '768x768', '1024x1024', '1280x1280', '1536x1536']
+
+============================================================
+LOADING MODEL WITH MULTIPLE ANGLES LORA
+============================================================
+
+Loading base transformer model...
+Setting up scheduler...
+Creating pipeline...
+Loading LoRA weights from qwen-image-edit-2511-multiple-angles-lora.safetensors...
+Moving to device...
+
+Model loading time: 10.66 seconds
+
+Loaded test image: tuntankhamun.jpg (201x251, mode: RGB)
+
+================================================================================
+PROMPT: tutankhamun_angles
+================================================================================
+Prompt preview: Testing multiple angle variations using SKS format...
+
+
+================================================================================
+RESOLUTION: 512x512
+================================================================================
+
+🔬 ANALYZING: front view eye-level shot medium shot
+   Resized input to 512x512
+🔬 ANALYZING: front view high-angle shot medium shot
+   Resized input to 512x512
+🔬 ANALYZING: front view low-angle shot medium shot
+   Resized input to 512x512
+🔬 ANALYZING: front view elevated shot medium shot
+   Resized input to 512x512
+🔬 ANALYZING: right side view eye-level shot medium shot
+   Resized input to 512x512
+🔬 ANALYZING: left side view eye-level shot medium shot
+   Resized input to 512x512
+🔬 ANALYZING: right side view high-angle shot medium shot
+   Resized input to 512x512
+🔬 ANALYZING: left side view low-angle shot medium shot
+   Resized input to 512x512
+🔬 ANALYZING: back view eye-level shot medium shot
+   Resized input to 512x512
+🔬 ANALYZING: back view high-angle shot medium shot
+   Resized input to 512x512
+🔬 ANALYZING: back view low-angle shot medium shot
+   Resized input to 512x512
+🔬 ANALYZING: front-left quarter view eye-level shot medium shot
+   Resized input to 512x512
+🔬 ANALYZING: front-right quarter view eye-level shot medium shot
+   Resized input to 512x512
+🔬 ANALYZING: back-left quarter view eye-level shot medium shot
+   Resized input to 512x512
+🔬 ANALYZING: back-right quarter view eye-level shot medium shot
+   Resized input to 512x512
+🔬 ANALYZING: front view eye-level shot close-up
+   Resized input to 512x512
+🔬 ANALYZING: front view eye-level shot wide shot
+   Resized input to 512x512
+🔬 ANALYZING: front view eye-level shot long shot
+   Resized input to 512x512
+
+================================================================================
+RESOLUTION: 768x768
+================================================================================
+
+🔬 ANALYZING: front view eye-level shot medium shot
+   Resized input to 768x768
+🔬 ANALYZING: front view high-angle shot medium shot
+   Resized input to 768x768
+🔬 ANALYZING: front view low-angle shot medium shot
+   Resized input to 768x768
+🔬 ANALYZING: front view elevated shot medium shot
+   Resized input to 768x768
+🔬 ANALYZING: right side view eye-level shot medium shot
+   Resized input to 768x768
+🔬 ANALYZING: left side view eye-level shot medium shot
+   Resized input to 768x768
+🔬 ANALYZING: right side view high-angle shot medium shot
+   Resized input to 768x768
+🔬 ANALYZING: left side view low-angle shot medium shot
+   Resized input to 768x768
+🔬 ANALYZING: back view eye-level shot medium shot
+   Resized input to 768x768
+🔬 ANALYZING: back view high-angle shot medium shot
+   Resized input to 768x768
+🔬 ANALYZING: back view low-angle shot medium shot
+   Resized input to 768x768
+🔬 ANALYZING: front-left quarter view eye-level shot medium shot
+   Resized input to 768x768
+🔬 ANALYZING: front-right quarter view eye-level shot medium shot
+   Resized input to 768x768
+🔬 ANALYZING: back-left quarter view eye-level shot medium shot
+   Resized input to 768x768
+🔬 ANALYZING: back-right quarter view eye-level shot medium shot
+   Resized input to 768x768
+🔬 ANALYZING: front view eye-level shot close-up
+   Resized input to 768x768
+🔬 ANALYZING: front view eye-level shot wide shot
+   Resized input to 768x768
+🔬 ANALYZING: front view eye-level shot long shot
+   Resized input to 768x768
+
+================================================================================
+RESOLUTION: 1024x1024
+================================================================================
+
+🔬 ANALYZING: front view eye-level shot medium shot
+   Resized input to 1024x1024
+🔬 ANALYZING: front view high-angle shot medium shot
+   Resized input to 1024x1024
+🔬 ANALYZING: front view low-angle shot medium shot
+   Resized input to 1024x1024
+🔬 ANALYZING: front view elevated shot medium shot
+   Resized input to 1024x1024
+🔬 ANALYZING: right side view eye-level shot medium shot
+   Resized input to 1024x1024
+🔬 ANALYZING: left side view eye-level shot medium shot
+   Resized input to 1024x1024
+🔬 ANALYZING: right side view high-angle shot medium shot
+   Resized input to 1024x1024
+🔬 ANALYZING: left side view low-angle shot medium shot
+   Resized input to 1024x1024
+🔬 ANALYZING: back view eye-level shot medium shot
+   Resized input to 1024x1024
+🔬 ANALYZING: back view high-angle shot medium shot
+   Resized input to 1024x1024
+🔬 ANALYZING: back view low-angle shot medium shot
+   Resized input to 1024x1024
+🔬 ANALYZING: front-left quarter view eye-level shot medium shot
+   Resized input to 1024x1024
+🔬 ANALYZING: front-right quarter view eye-level shot medium shot
+   Resized input to 1024x1024
+🔬 ANALYZING: back-left quarter view eye-level shot medium shot
+   Resized input to 1024x1024
+🔬 ANALYZING: back-right quarter view eye-level shot medium shot
+   Resized input to 1024x1024
+🔬 ANALYZING: front view eye-level shot close-up
+   Resized input to 1024x1024
+🔬 ANALYZING: front view eye-level shot wide shot
+   Resized input to 1024x1024
+🔬 ANALYZING: front view eye-level shot long shot
+   Resized input to 1024x1024
+
+================================================================================
+RESOLUTION: 1280x1280
+================================================================================
+
+🔬 ANALYZING: front view eye-level shot medium shot
+   Resized input to 1280x1280
+🔬 ANALYZING: front view high-angle shot medium shot
+   Resized input to 1280x1280
+🔬 ANALYZING: front view low-angle shot medium shot
+   Resized input to 1280x1280
+🔬 ANALYZING: front view elevated shot medium shot
+   Resized input to 1280x1280
+🔬 ANALYZING: right side view eye-level shot medium shot
+   Resized input to 1280x1280
+🔬 ANALYZING: left side view eye-level shot medium shot
+   Resized input to 1280x1280
+🔬 ANALYZING: right side view high-angle shot medium shot
+   Resized input to 1280x1280
+🔬 ANALYZING: left side view low-angle shot medium shot
+   Resized input to 1280x1280
+🔬 ANALYZING: back view eye-level shot medium shot
+   Resized input to 1280x1280
+🔬 ANALYZING: back view high-angle shot medium shot
+   Resized input to 1280x1280
+🔬 ANALYZING: back view low-angle shot medium shot
+   Resized input to 1280x1280
+🔬 ANALYZING: front-left quarter view eye-level shot medium shot
+   Resized input to 1280x1280
+🔬 ANALYZING: front-right quarter view eye-level shot medium shot
+   Resized input to 1280x1280
+🔬 ANALYZING: back-left quarter view eye-level shot medium shot
+   Resized input to 1280x1280
+🔬 ANALYZING: back-right quarter view eye-level shot medium shot
+   Resized input to 1280x1280
+🔬 ANALYZING: front view eye-level shot close-up
+   Resized input to 1280x1280
+🔬 ANALYZING: front view eye-level shot wide shot
+   Resized input to 1280x1280
+🔬 ANALYZING: front view eye-level shot long shot
+   Resized input to 1280x1280
+
+================================================================================
+RESOLUTION: 1536x1536
+================================================================================
+
+🔬 ANALYZING: front view eye-level shot medium shot
+   Resized input to 1536x1536
+🔬 ANALYZING: front view high-angle shot medium shot
+   Resized input to 1536x1536
+🔬 ANALYZING: front view low-angle shot medium shot
+   Resized input to 1536x1536
+🔬 ANALYZING: front view elevated shot medium shot
+   Resized input to 1536x1536
+🔬 ANALYZING: right side view eye-level shot medium shot
+   Resized input to 1536x1536
+🔬 ANALYZING: left side view eye-level shot medium shot
+   Resized input to 1536x1536
+🔬 ANALYZING: right side view high-angle shot medium shot
+   Resized input to 1536x1536
+🔬 ANALYZING: left side view low-angle shot medium shot
+   Resized input to 1536x1536
+🔬 ANALYZING: back view eye-level shot medium shot
+   Resized input to 1536x1536
+🔬 ANALYZING: back view high-angle shot medium shot
+   Resized input to 1536x1536
+🔬 ANALYZING: back view low-angle shot medium shot
+   Resized input to 1536x1536
+🔬 ANALYZING: front-left quarter view eye-level shot medium shot
+   Resized input to 1536x1536
+🔬 ANALYZING: front-right quarter view eye-level shot medium shot
+   Resized input to 1536x1536
+🔬 ANALYZING: back-left quarter view eye-level shot medium shot
+   Resized input to 1536x1536
+🔬 ANALYZING: back-right quarter view eye-level shot medium shot
+   Resized input to 1536x1536
+🔬 ANALYZING: front view eye-level shot close-up
+   Resized input to 1536x1536
+🔬 ANALYZING: front view eye-level shot wide shot
+   Resized input to 1536x1536
+🔬 ANALYZING: front view eye-level shot long shot
+   Resized input to 1536x1536
+============================================================
+MULTIPLE ANGLES MODEL - 8 STEPS
+============================================================
+
+====================================================================================================
+BENCHMARK RESULTS
+====================================================================================================
+#    | PROMPT                                        | RESOLUTION   | STEPS  | TIME       | VRAM    
+----------------------------------------------------------------------------------------------------
+1    | front view eye-level shot medium shot         | 512x512      | 8      |    25.83s |  65.47 GB
+2    | front view high-angle shot medium shot        | 512x512      | 8      |    24.66s |  66.42 GB
+3    | front view low-angle shot medium shot         | 512x512      | 8      |    24.67s |  66.42 GB
+4    | front view elevated shot medium shot          | 512x512      | 8      |    24.67s |  66.42 GB
+5    | right side view eye-level shot medium shot    | 512x512      | 8      |    24.66s |  66.42 GB
+6    | left side view eye-level shot medium shot     | 512x512      | 8      |    24.66s |  66.42 GB
+7    | right side view high-angle shot medium shot   | 512x512      | 8      |    24.65s |  66.42 GB
+8    | left side view low-angle shot medium shot     | 512x512      | 8      |    24.66s |  66.42 GB
+9    | back view eye-level shot medium shot          | 512x512      | 8      |    24.64s |  66.42 GB
+10   | back view high-angle shot medium shot         | 512x512      | 8      |    24.65s |  66.42 GB
+11   | back view low-angle shot medium shot          | 512x512      | 8      |    24.65s |  66.42 GB
+12   | front-left quarter view eye-level shot medi   | 512x512      | 8      |    24.64s |  66.42 GB
+13   | front-right quarter view eye-level shot med   | 512x512      | 8      |    24.65s |  66.42 GB
+14   | back-left quarter view eye-level shot mediu   | 512x512      | 8      |    24.65s |  66.42 GB
+15   | back-right quarter view eye-level shot medi   | 512x512      | 8      |    24.65s |  66.42 GB
+16   | front view eye-level shot close-up            | 512x512      | 8      |    24.65s |  66.42 GB
+17   | front view eye-level shot wide shot           | 512x512      | 8      |    24.65s |  66.42 GB
+18   | front view eye-level shot long shot           | 512x512      | 8      |    24.64s |  66.42 GB
+19   | front view eye-level shot medium shot         | 768x768      | 8      |    24.65s |  66.42 GB
+20   | front view high-angle shot medium shot        | 768x768      | 8      |    24.66s |  66.42 GB
+21   | front view low-angle shot medium shot         | 768x768      | 8      |    24.65s |  66.42 GB
+22   | front view elevated shot medium shot          | 768x768      | 8      |    24.66s |  66.42 GB
+23   | right side view eye-level shot medium shot    | 768x768      | 8      |    24.66s |  66.42 GB
+24   | left side view eye-level shot medium shot     | 768x768      | 8      |    24.66s |  66.42 GB
+25   | right side view high-angle shot medium shot   | 768x768      | 8      |    24.65s |  66.42 GB
+26   | left side view low-angle shot medium shot     | 768x768      | 8      |    24.66s |  66.42 GB
+27   | back view eye-level shot medium shot          | 768x768      | 8      |    24.66s |  66.42 GB
+28   | back view high-angle shot medium shot         | 768x768      | 8      |    24.66s |  66.42 GB
+29   | back view low-angle shot medium shot          | 768x768      | 8      |    24.66s |  66.42 GB
+30   | front-left quarter view eye-level shot medi   | 768x768      | 8      |    24.65s |  66.42 GB
+31   | front-right quarter view eye-level shot med   | 768x768      | 8      |    24.65s |  66.42 GB
+32   | back-left quarter view eye-level shot mediu   | 768x768      | 8      |    24.65s |  66.42 GB
+33   | back-right quarter view eye-level shot medi   | 768x768      | 8      |    24.66s |  66.42 GB
+34   | front view eye-level shot close-up            | 768x768      | 8      |    24.65s |  66.42 GB
+35   | front view eye-level shot wide shot           | 768x768      | 8      |    24.65s |  66.42 GB
+36   | front view eye-level shot long shot           | 768x768      | 8      |    24.65s |  66.42 GB
+37   | front view eye-level shot medium shot         | 1024x1024    | 8      |    24.64s |  66.42 GB
+38   | front view high-angle shot medium shot        | 1024x1024    | 8      |    24.64s |  66.42 GB
+39   | front view low-angle shot medium shot         | 1024x1024    | 8      |    24.64s |  66.42 GB
+40   | front view elevated shot medium shot          | 1024x1024    | 8      |    24.64s |  66.42 GB
+41   | right side view eye-level shot medium shot    | 1024x1024    | 8      |    24.64s |  66.42 GB
+42   | left side view eye-level shot medium shot     | 1024x1024    | 8      |    24.65s |  66.42 GB
+43   | right side view high-angle shot medium shot   | 1024x1024    | 8      |    24.64s |  66.42 GB
+44   | left side view low-angle shot medium shot     | 1024x1024    | 8      |    24.65s |  66.42 GB
+45   | back view eye-level shot medium shot          | 1024x1024    | 8      |    24.65s |  66.42 GB
+46   | back view high-angle shot medium shot         | 1024x1024    | 8      |    24.64s |  66.42 GB
+47   | back view low-angle shot medium shot          | 1024x1024    | 8      |    24.65s |  66.42 GB
+48   | front-left quarter view eye-level shot medi   | 1024x1024    | 8      |    24.64s |  66.42 GB
+49   | front-right quarter view eye-level shot med   | 1024x1024    | 8      |    24.65s |  66.42 GB
+50   | back-left quarter view eye-level shot mediu   | 1024x1024    | 8      |    24.65s |  66.42 GB
+51   | back-right quarter view eye-level shot medi   | 1024x1024    | 8      |    24.64s |  66.42 GB
+52   | front view eye-level shot close-up            | 1024x1024    | 8      |    24.65s |  66.42 GB
+53   | front view eye-level shot wide shot           | 1024x1024    | 8      |    24.64s |  66.42 GB
+54   | front view eye-level shot long shot           | 1024x1024    | 8      |    24.65s |  66.42 GB
+55   | front view eye-level shot medium shot         | 1280x1280    | 8      |    24.68s |  66.42 GB
+56   | front view high-angle shot medium shot        | 1280x1280    | 8      |    24.68s |  66.42 GB
+57   | front view low-angle shot medium shot         | 1280x1280    | 8      |    24.68s |  66.42 GB
+58   | front view elevated shot medium shot          | 1280x1280    | 8      |    24.68s |  66.42 GB
+59   | right side view eye-level shot medium shot    | 1280x1280    | 8      |    24.68s |  66.42 GB
+60   | left side view eye-level shot medium shot     | 1280x1280    | 8      |    24.67s |  66.42 GB
+61   | right side view high-angle shot medium shot   | 1280x1280    | 8      |    24.67s |  66.42 GB
+62   | left side view low-angle shot medium shot     | 1280x1280    | 8      |    24.67s |  66.42 GB
+63   | back view eye-level shot medium shot          | 1280x1280    | 8      |    24.66s |  66.42 GB
+64   | back view high-angle shot medium shot         | 1280x1280    | 8      |    24.67s |  66.42 GB
+65   | back view low-angle shot medium shot          | 1280x1280    | 8      |    24.68s |  66.42 GB
+66   | front-left quarter view eye-level shot medi   | 1280x1280    | 8      |    24.67s |  66.42 GB
+67   | front-right quarter view eye-level shot med   | 1280x1280    | 8      |    24.67s |  66.42 GB
+68   | back-left quarter view eye-level shot mediu   | 1280x1280    | 8      |    24.66s |  66.42 GB
+69   | back-right quarter view eye-level shot medi   | 1280x1280    | 8      |    24.66s |  66.42 GB
+70   | front view eye-level shot close-up            | 1280x1280    | 8      |    24.67s |  66.42 GB
+71   | front view eye-level shot wide shot           | 1280x1280    | 8      |    24.68s |  66.42 GB
+72   | front view eye-level shot long shot           | 1280x1280    | 8      |    24.72s |  66.42 GB
+73   | front view eye-level shot medium shot         | 1536x1536    | 8      |    24.69s |  66.42 GB
+74   | front view high-angle shot medium shot        | 1536x1536    | 8      |    24.68s |  66.42 GB
+75   | front view low-angle shot medium shot         | 1536x1536    | 8      |    24.69s |  66.42 GB
+76   | front view elevated shot medium shot          | 1536x1536    | 8      |    24.69s |  66.42 GB
+77   | right side view eye-level shot medium shot    | 1536x1536    | 8      |    24.68s |  66.42 GB
+78   | left side view eye-level shot medium shot     | 1536x1536    | 8      |    24.73s |  66.42 GB
+79   | right side view high-angle shot medium shot   | 1536x1536    | 8      |    24.69s |  66.42 GB
+80   | left side view low-angle shot medium shot     | 1536x1536    | 8      |    24.69s |  66.42 GB
+81   | back view eye-level shot medium shot          | 1536x1536    | 8      |    24.69s |  66.42 GB
+82   | back view high-angle shot medium shot         | 1536x1536    | 8      |    24.68s |  66.42 GB
+83   | back view low-angle shot medium shot          | 1536x1536    | 8      |    24.68s |  66.42 GB
+84   | front-left quarter view eye-level shot medi   | 1536x1536    | 8      |    24.69s |  66.42 GB
+85   | front-right quarter view eye-level shot med   | 1536x1536    | 8      |    24.69s |  66.42 GB
+86   | back-left quarter view eye-level shot mediu   | 1536x1536    | 8      |    24.69s |  66.42 GB
+87   | back-right quarter view eye-level shot medi   | 1536x1536    | 8      |    24.68s |  66.42 GB
+88   | front view eye-level shot close-up            | 1536x1536    | 8      |    24.68s |  66.42 GB
+89   | front view eye-level shot wide shot           | 1536x1536    | 8      |    24.67s |  66.42 GB
+90   | front view eye-level shot long shot           | 1536x1536    | 8      |    24.68s |  66.42 GB
+
+================================================================================
+FINAL SUMMARY
+================================================================================
+
+Model: Qwen/Qwen-Image-Edit-2511
+LoRA: qwen-image-edit-2511-multiple-angles-lora.safetensors
+Inference Steps: 8
+CFG Scale: 4.0
+Model Loading Time: 10.66 seconds
+Total Angles Tested: 90
+Output Directory: /home/ubuntu/Qwen-Image-Edit-2511-Multiple-Angles-testing/tutankhamun_angles_20260119_101440
+Log File: /home/ubuntu/Qwen-Image-Edit-2511-Multiple-Angles-testing/tutankhamun_angles_20260119_101440/test_log_20260119_101440.txt
+
+================================================================================
+STATISTICS (Successful Generations Only)
+================================================================================
+Total Successful: 90/90
+
+Generation Time (without model loading):
+  Average: 24.68s
+  Fastest: 24.64s
+  Slowest: 25.83s
+  Total: 2220.85s
+
+Total Time (with model loading):
+  Model Loading: 10.66s
+  Generation: 2220.85s
+  Total: 2231.51s
+  Average per image (with loading): 24.79s
+Average Throughput: 0.04M px/sec
+Max Throughput: 0.04M px/sec
+Average Time per Step: 3084.5ms
+Fastest Step Time: 3079.4ms
+Average Peak VRAM: 66.41 GB
+Max Peak VRAM: 66.42 GB
+Min Peak VRAM: 65.47 GB
+
+================================================================================
+
+Test completed successfully!
+
+Inference time grid saved to:
+  CSV: tutankhamun_angles_20260119_101440/inference_time_grid_20260119_101440.csv
+  TXT: tutankhamun_angles_20260119_101440/inference_time_grid_20260119_101440.txt

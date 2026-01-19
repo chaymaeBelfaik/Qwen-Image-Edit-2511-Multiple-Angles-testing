@@ -256,7 +256,7 @@ def load_pipeline_with_lora(lora_path="qwen-image-edit-2511-multiple-angles-lora
     loading_time = time.time() - loading_start_time
     return pipeline, loading_time, lora_loaded
 
-def generate_with_prompt(pipeline, image, prompt, output_filename, seed=42, log_file=None):
+def generate_with_prompt(pipeline, image, prompt, output_filename, seed=42, log_file=None, target_resolution=None):
     """Generate image with given prompt and collect metrics"""
     print(f"\n🎬 Generating: {prompt}")
     if log_file:
@@ -266,6 +266,14 @@ def generate_with_prompt(pipeline, image, prompt, output_filename, seed=42, log_
     # Ensure image is in correct format for Qwen (needs list of images)
     if hasattr(image, 'mode') and image.mode != 'RGB':
         image = image.convert('RGB')
+    
+    # Resize input image to target resolution if specified
+    if target_resolution is not None:
+        if image.size != target_resolution:
+            image = image.resize(target_resolution, Image.Resampling.LANCZOS)
+            if log_file:
+                log_file.write(f"   Resized input to {target_resolution[0]}x{target_resolution[1]}\n")
+    
     input_image = [image]  # Qwen expects a list of images
 
     inputs = {
@@ -298,8 +306,9 @@ def generate_with_prompt(pipeline, image, prompt, output_filename, seed=42, log_
 
     # Save image
     output_image.save(output_filename)
+    resolution_str = f" {target_resolution[0]}x{target_resolution[1]}" if target_resolution else ""
     print(f"✅ Saved: {output_filename}")
-    print(f"   ⏱️  Time: {generation_time:.2f}s")
+    print(f"   ⏱️  Time: {generation_time:.2f}s{resolution_str}")
     if METRICS_AVAILABLE:
         print(f"   🧠 Peak VRAM: {vram_peak:.2f} GB")
 
@@ -309,6 +318,7 @@ def generate_with_prompt(pipeline, image, prompt, output_filename, seed=42, log_
         "prompt": prompt,
         "filename": output_filename,
         "image_size": output_image.size,
+        "resolution": target_resolution if target_resolution else output_image.size,
         "pixels": output_image.size[0] * output_image.size[1],
         "pixels_per_sec": (output_image.size[0] * output_image.size[1]) / generation_time if generation_time > 0 else 0,
         "steps": inputs["num_inference_steps"]
@@ -416,16 +426,22 @@ def write_benchmark_results(log_file, results):
     log_file.write(f"MULTIPLE ANGLES MODEL - {steps_used} STEPS\n")
     log_file.write("=" * 60 + "\n\n")
 
-    log_file.write("=" * 80 + "\n")
+    log_file.write("=" * 100 + "\n")
     log_file.write("BENCHMARK RESULTS\n")
-    log_file.write("=" * 80 + "\n")
-    log_file.write(f"{'#':<4} | {'PROMPT':<50} | {'STEPS':<6} | {'TIME':<10} | {'VRAM':<8}\n")
-    log_file.write("-" * 80 + "\n")
+    log_file.write("=" * 100 + "\n")
+    log_file.write(f"{'#':<4} | {'PROMPT':<45} | {'RESOLUTION':<12} | {'STEPS':<6} | {'TIME':<10} | {'VRAM':<8}\n")
+    log_file.write("-" * 100 + "\n")
 
     for i, r in enumerate(results):
-        prompt_short = r['prompt'].replace("<sks> ", "")[:48]
+        prompt_short = r['prompt'].replace("<sks> ", "")[:43]
         steps = r.get('steps', 8)
-        log_file.write(f"{i+1:<4} | {prompt_short:<50} | {steps:<6} | {r['time']:>8.2f}s | {r['vram_peak']:>6.2f} GB\n")
+        # Get resolution from result
+        resolution = r.get('resolution', r.get('image_size', (0, 0)))
+        if isinstance(resolution, tuple):
+            resolution_str = f"{resolution[0]}x{resolution[1]}"
+        else:
+            resolution_str = str(resolution)
+        log_file.write(f"{i+1:<4} | {prompt_short:<45} | {resolution_str:<12} | {steps:<6} | {r['time']:>8.2f}s | {r['vram_peak']:>6.2f} GB\n")
 
     log_file.write("\n")
 
@@ -435,6 +451,153 @@ def write_prompt_section(log_file, prompt_name="dior_angles"):
     log_file.write(f"PROMPT: {prompt_name}\n")
     log_file.write("=" * 80 + "\n")
     log_file.write(f"Prompt preview: Testing multiple angle variations using SKS format...\n\n")
+
+def create_inference_time_grid(results_by_resolution, output_dir, timestamp_str):
+    """Create a grid showing inference time by image and resolution"""
+    import csv
+    
+    # Get all unique resolutions from dictionary keys and prompts from results
+    resolutions = sorted(results_by_resolution.keys(), key=lambda x: x[0] * x[1])
+    prompts = []
+    for results in results_by_resolution.values():
+        for result in results:
+            if result['prompt'] not in prompts:
+                prompts.append(result['prompt'])
+    # Keep original order of prompts (don't sort)
+    
+    print(f"\n📊 Creating inference time grid...")
+    print(f"   Resolutions found: {len(resolutions)}")
+    for idx, res in enumerate(resolutions, 1):
+        print(f"      {idx}. {res[0]}x{res[1]}: {len(results_by_resolution[res])} images")
+    print(f"   Total prompts: {len(prompts)}")
+    print(f"   Expected grid entries: {len(prompts)} rows × {len(resolutions)} columns = {len(prompts) * len(resolutions)} cells")
+    
+    # Create grid data structure
+    grid_data = {}
+    for prompt in prompts:
+        grid_data[prompt] = {}
+        for resolution in resolutions:
+            grid_data[prompt][resolution] = None
+    
+    # Fill grid with timing data
+    filled_count = 0
+    for resolution, results in results_by_resolution.items():
+        for result in results:
+            prompt = result['prompt']
+            if prompt in grid_data and resolution in grid_data[prompt]:
+                grid_data[prompt][resolution] = result['time']
+                filled_count += 1
+    
+    print(f"   Grid entries filled: {filled_count}/{len(prompts) * len(resolutions)}")
+    
+    # Create CSV file
+    csv_filename = f"{output_dir}/inference_time_grid_{timestamp_str}.csv"
+    with open(csv_filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        
+        # Write header with all resolutions
+        header = ['Image/Prompt'] + [f"{r[0]}x{r[1]}" for r in resolutions]
+        writer.writerow(header)
+        
+        # Write data rows with times for each resolution
+        for i, prompt in enumerate(prompts):
+            prompt_short = prompt.replace("<sks> ", "")[:50]
+            row = [f"Image_{i+1:02d}_{prompt_short}"] + [
+                f"{grid_data[prompt][r]:.2f}" if grid_data[prompt][r] is not None else "N/A"
+                for r in resolutions
+            ]
+            writer.writerow(row)
+    
+    # Create formatted text file
+    txt_filename = f"{output_dir}/inference_time_grid_{timestamp_str}.txt"
+    with open(txt_filename, 'w') as txtfile:
+        txtfile.write("=" * 150 + "\n")
+        txtfile.write("INFERENCE TIME GRID - Time by Image and Resolution\n")
+        txtfile.write("=" * 150 + "\n\n")
+        
+        # List all resolutions being tested
+        txtfile.write(f"RESOLUTIONS TESTED ({len(resolutions)} total):\n")
+        for idx, resolution in enumerate(resolutions, 1):
+            txtfile.write(f"  {idx}. {resolution[0]}x{resolution[1]}\n")
+        txtfile.write(f"\nImages per resolution: {len(prompts)}\n")
+        txtfile.write(f"Total images in grid: {filled_count}\n")
+        txtfile.write(f"Expected total: {len(prompts) * len(resolutions)}\n\n")
+        
+        # Calculate dynamic table width based on number of resolutions
+        prompt_col_width = 50
+        resolution_col_width = 12
+        separator_width = 3  # " | "
+        table_width = prompt_col_width + (len(resolutions) * (resolution_col_width + separator_width))
+        
+        # Write note confirming all resolutions in table
+        txtfile.write("TABLE STRUCTURE:\n")
+        txtfile.write(f"  - Rows: {len(prompts)} images/prompts\n")
+        txtfile.write(f"  - Columns: {len(resolutions)} resolutions (all listed above)\n")
+        txtfile.write(f"  - Each cell shows generation time in seconds\n\n")
+        
+        # Write header with all resolutions
+        txtfile.write("INFERENCE TIME TABLE (seconds):\n")
+        header_line = f"{'Image/Prompt':<{prompt_col_width}}"
+        for idx, resolution in enumerate(resolutions):
+            res_str = f"{resolution[0]}x{resolution[1]}"
+            header_line += f" | {res_str:<{resolution_col_width}}"
+        txtfile.write(header_line + "\n")
+        txtfile.write("-" * table_width + "\n")
+        
+        # Write data rows with times for each resolution
+        for i, prompt in enumerate(prompts):
+            prompt_short = prompt.replace("<sks> ", "")[:48]
+            row_line = f"Image_{i+1:02d}_{prompt_short:<{prompt_col_width-12}}"
+            for resolution in resolutions:
+                time_val = grid_data[prompt][resolution]
+                if time_val is not None:
+                    row_line += f" | {time_val:>10.2f}s"
+                else:
+                    row_line += f" | {'N/A':>10}"
+            txtfile.write(row_line + "\n")
+        
+        # Write summary statistics for each resolution
+        txtfile.write("\n" + "=" * 150 + "\n")
+        txtfile.write("SUMMARY STATISTICS BY RESOLUTION\n")
+        txtfile.write("=" * 150 + "\n\n")
+        
+        # Verify all resolutions are included
+        txtfile.write(f"All {len(resolutions)} resolutions included in statistics:\n\n")
+        
+        for idx, resolution in enumerate(resolutions, 1):
+            times = [grid_data[p][resolution] for p in prompts if grid_data[p][resolution] is not None]
+            if times:
+                avg_time = sum(times) / len(times)
+                min_time = min(times)
+                max_time = max(times)
+                total_time = sum(times)
+                txtfile.write(f"{idx}. Resolution {resolution[0]}x{resolution[1]}:\n")
+                txtfile.write(f"   Images generated: {len(times)}/{len(prompts)}\n")
+                txtfile.write(f"   Average time: {avg_time:.2f}s\n")
+                txtfile.write(f"   Min time: {min_time:.2f}s\n")
+                txtfile.write(f"   Max time: {max_time:.2f}s\n")
+                txtfile.write(f"   Total time: {total_time:.2f}s\n\n")
+            else:
+                txtfile.write(f"{idx}. Resolution {resolution[0]}x{resolution[1]}:\n")
+                txtfile.write(f"   ⚠️  No data available for this resolution\n\n")
+        
+        # Add verification section
+        txtfile.write("=" * 150 + "\n")
+        txtfile.write("VERIFICATION\n")
+        txtfile.write("=" * 150 + "\n")
+        txtfile.write(f"Resolutions in table header: {len(resolutions)}\n")
+        txtfile.write(f"Resolutions in statistics section: {len(resolutions)}\n")
+        txtfile.write(f"Resolutions listed at top: {len(resolutions)}\n")
+        txtfile.write(f"✅ All {len(resolutions)} resolutions are included in the table above\n")
+        txtfile.write(f"\nResolution list:\n")
+        for idx, resolution in enumerate(resolutions, 1):
+            txtfile.write(f"  {idx}. {resolution[0]}x{resolution[1]}\n")
+    
+    print(f"   ✅ Grid saved:")
+    print(f"      CSV: {csv_filename}")
+    print(f"      TXT: {txt_filename}")
+    
+    return csv_filename, txt_filename
 
 def write_final_summary(log_file, results, loading_time, output_dir, log_filename, gpu_info, lora_loaded):
     """Write the final summary section"""
@@ -515,17 +678,27 @@ if __name__ == "__main__":
     # Setup timestamp and output directory
     timestamp = datetime.datetime.now()
     timestamp_str = timestamp.strftime("%Y%m%d_%H%M%S")
-    output_dir = f"mustang_angles_{timestamp_str}"
+    output_dir = f"tutankhamun_angles_{timestamp_str}"
     os.makedirs(output_dir, exist_ok=True)
+
+    # Define resolutions to test
+    resolutions_to_test = [
+        (512, 512),
+        (768, 768),
+        (1024, 1024),
+        (1280, 1280),
+        (1536, 1536),
+    ]
 
     # Create log file
     log_filename = f"{output_dir}/test_log_{timestamp_str}.txt"
     log_file = open(log_filename, 'w')
 
-    print("🎭 Multiple Angles LoRA Test - 1967 Mustang Fastback")
+    print("🎭 Multiple Angles LoRA Test - Tutankhamun")
     print("=" * 60)
     print(f"Output directory: {os.path.abspath(output_dir)}")
     print(f"Log file: {os.path.abspath(log_filename)}")
+    print(f"Resolutions to test: {[f'{r[0]}x{r[1]}' for r in resolutions_to_test]}")
     print()
 
     # Get initial GPU info
@@ -546,6 +719,7 @@ if __name__ == "__main__":
 
     # Write log header
     write_log_header(log_file, output_dir, gpu_info, initial_vram)
+    log_file.write(f"Testing resolutions: {[f'{r[0]}x{r[1]}' for r in resolutions_to_test]}\n\n")
 
     # Load pipeline and track loading time
     print("Loading model...")
@@ -555,82 +729,102 @@ if __name__ == "__main__":
     write_model_loading_section(log_file, "qwen-image-edit-2511-multiple-angles-lora.safetensors", loading_time, gpu_info)
 
     # Load the specific test image
-    test_image_path = "1967 Mustang Fastback.jpg"
+    test_image_path = "tuntankhamun.jpg"
     if not os.path.exists(test_image_path):
         error_msg = f"❌ Test image not found: {test_image_path}"
         print(error_msg)
         log_file.write(error_msg + "\n")
         exit(1)
 
-    image = Image.open(test_image_path)
+    # Load original image (we'll resize it for each resolution)
+    original_image = Image.open(test_image_path)
     print(f"✅ Loaded test image: {test_image_path}")
-    print(f"   Image size: {image.size}")
-    print(f"   Image mode: {image.mode}")
+    print(f"   Original image size: {original_image.size}")
+    print(f"   Image mode: {original_image.mode}")
 
     # Convert to RGB if necessary and handle transparency
-    if image.mode in ('RGBA', 'LA', 'P'):
-        print(f"   Converting from {image.mode} to RGB...")
+    if original_image.mode in ('RGBA', 'LA', 'P'):
+        print(f"   Converting from {original_image.mode} to RGB...")
         # Create white background for transparent images
-        if image.mode == 'P' and 'transparency' in image.info:
-            image = image.convert('RGBA')
-        if image.mode == 'RGBA':
+        if original_image.mode == 'P' and 'transparency' in original_image.info:
+            original_image = original_image.convert('RGBA')
+        if original_image.mode == 'RGBA':
             # Create a white background
-            background = Image.new('RGB', image.size, (255, 255, 255))
-            if image.mode == 'RGBA':
-                background.paste(image, mask=image.split()[-1])  # Use alpha as mask
-                image = background
+            background = Image.new('RGB', original_image.size, (255, 255, 255))
+            if original_image.mode == 'RGBA':
+                background.paste(original_image, mask=original_image.split()[-1])  # Use alpha as mask
+                original_image = background
             else:
-                image = image.convert('RGB')
+                original_image = original_image.convert('RGB')
         else:
-            image = image.convert('RGB')
-    elif image.mode != 'RGB':
-        print(f"   Converting from {image.mode} to RGB...")
-        image = image.convert('RGB')
+            original_image = original_image.convert('RGB')
+    elif original_image.mode != 'RGB':
+        print(f"   Converting from {original_image.mode} to RGB...")
+        original_image = original_image.convert('RGB')
 
-    # Resize if needed (Qwen might expect specific dimensions)
-    target_size = (1024, 1024)  # Qwen expects 1024x1024
-    if image.size != target_size:
-        print(f"   Resizing from {image.size} to {target_size}...")
-        image = image.resize(target_size, Image.Resampling.LANCZOS)
+    print(f"   Final image mode: {original_image.mode}")
+    log_file.write(f"Loaded test image: {test_image_path} ({original_image.size[0]}x{original_image.size[1]}, mode: {original_image.mode})\n\n")
 
-    print(f"   Final image size: {image.size}, mode: {image.mode}")
-    log_file.write(f"Loaded test image: {test_image_path} ({image.size[0]}x{image.size[1]}, mode: {image.mode})\n\n")
-
-    # Collect results for final report
-    results = []
+    # Collect results organized by resolution
+    results_by_resolution = {}
+    all_results = []
 
     # Write prompt section to log
-    write_prompt_section(log_file, "mustang_angles")
+    write_prompt_section(log_file, "tutankhamun_angles")
 
-    # Generate images for each prompt
-    print(f"\n🎬 Generating {len(sks_prompts)} angle variations...")
+    # Generate images for each resolution
+    total_combinations = len(resolutions_to_test) * len(sks_prompts)
+    current_combination = 0
+
+    print(f"\n🎬 Generating {len(sks_prompts)} angle variations at {len(resolutions_to_test)} resolutions...")
+    print(f"   Total: {total_combinations} image generations")
     print("=" * 80)
 
-    for i, prompt in enumerate(sks_prompts):
-        # Create filename from prompt (sanitize for filesystem)
-        safe_name = prompt.replace("<sks> ", "").replace(" ", "_").replace("-", "_")
-        filename = f"{output_dir}/angle_{i+1:02d}_{safe_name}.png"
+    for resolution in resolutions_to_test:
+        resolution_str = f"{resolution[0]}x{resolution[1]}"
+        print(f"\n{'='*80}")
+        print(f"📐 Testing Resolution: {resolution_str}")
+        print(f"{'='*80}")
+        log_file.write(f"\n{'='*80}\n")
+        log_file.write(f"RESOLUTION: {resolution_str}\n")
+        log_file.write(f"{'='*80}\n\n")
 
-        result = generate_with_prompt(pipeline, image, prompt, filename, seed=i+200, log_file=log_file)
-        results.append(result)
+        results_by_resolution[resolution] = []
 
-        # Progress indicator
-        progress = (i + 1) / len(sks_prompts) * 100
-        print(f"   Progress: {progress:.1f}% ({i+1}/{len(sks_prompts)})")
+        for i, prompt in enumerate(sks_prompts):
+            current_combination += 1
+            # Create filename from prompt and resolution (sanitize for filesystem)
+            safe_name = prompt.replace("<sks> ", "").replace(" ", "_").replace("-", "_")
+            filename = f"{output_dir}/res_{resolution[0]}x{resolution[1]}_angle_{i+1:02d}_{safe_name}.png"
+
+            result = generate_with_prompt(
+                pipeline, 
+                original_image, 
+                prompt, 
+                filename, 
+                seed=i+200, 
+                log_file=log_file,
+                target_resolution=resolution
+            )
+            results_by_resolution[resolution].append(result)
+            all_results.append(result)
+
+            # Progress indicator
+            progress = (current_combination / total_combinations) * 100
+            print(f"   Overall Progress: {progress:.1f}% ({current_combination}/{total_combinations})")
 
     # Write benchmark results to log
-    write_benchmark_results(log_file, results)
+    write_benchmark_results(log_file, all_results)
 
     # Write final summary to log
-    write_final_summary(log_file, results, loading_time, output_dir, log_filename, gpu_info, lora_loaded)
+    write_final_summary(log_file, all_results, loading_time, output_dir, log_filename, gpu_info, lora_loaded)
 
-    # Create animated GIF from all generated images
-    print("\n🎬 Creating animated GIF...")
-    try:
-        create_angle_gif(generated_images, output_dir)
-        print("✅ Animated GIF created successfully!")
-    except Exception as e:
-        print(f"⚠️  Failed to create GIF: {e}")
+    # Create inference time grid
+    print("\n📊 Creating inference time grid...")
+    csv_file, txt_file = create_inference_time_grid(results_by_resolution, output_dir, timestamp_str)
+    log_file.write(f"\nInference time grid saved to:\n")
+    log_file.write(f"  CSV: {csv_file}\n")
+    log_file.write(f"  TXT: {txt_file}\n")
 
     # Close log file
     log_file.close()
@@ -639,8 +833,13 @@ if __name__ == "__main__":
     print("\n" + "=" * 80)
     print("📊 MULTIPLE ANGLES TEST RESULTS")
     print("=" * 80)
-    print(f"✅ Generation complete! Check the '{output_dir}' folder for {len(sks_prompts)} variations.")
-    print(f"🎬 Animated GIF: {output_dir}/angle_variations.gif")
-    print(f"📝 Detailed log saved to: {log_filename}")
+    print(f"✅ Generation complete!")
+    print(f"   Total images generated: {total_combinations}")
+    print(f"   Resolutions tested: {len(resolutions_to_test)}")
+    print(f"   Prompts per resolution: {len(sks_prompts)}")
+    print(f"📁 Output directory: {output_dir}")
+    print(f"📝 Detailed log: {log_filename}")
+    print(f"📊 Inference time grid (CSV): {csv_file}")
+    print(f"📊 Inference time grid (TXT): {txt_file}")
     print("💡 Each variation shows the subject from a different camera angle using SKS format")
     print("=" * 80)
